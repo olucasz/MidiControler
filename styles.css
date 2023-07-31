@@ -1,0 +1,60 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0487D9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #FFF;
+}
+
+.sound-grid {
+    display: flex; /* Mude para flex para alinhar as caixas lado a lado */
+    justify-content: space-between; /* Distribui as caixas com espaço entre elas */
+    width: 1000px; /* Largura total das caixas */
+}
+
+.sound-box {
+    width: 230px; /* Largura das caixas grandes */
+    height: 230px; /* Altura das caixas grandes */
+    background-color: #F2F2F2;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.sound-box.playing {
+    background-color: #D92579;
+}
+
+
+.sound-box.large {
+    width: 100%; /* Largura total da caixa "espaço" */
+    height: 320px; /* Altura da caixa "espaço" */
+    margin-top: 20px; /* Espaço entre a caixa "espaço" e as caixas superiores */
+}
+
+h2 {
+    margin: 0;
+    color: #333;
+}
+
+.success {
+    display: none;
+}

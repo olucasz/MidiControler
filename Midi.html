@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">PRECIONE A TECLA DESEJADA :D</h1>
+        <div class="sound-grid">
+            <div class="sound-box" onclick="playSound('soundA')">
+                <h2>Bumbo</h2>
+            </div>
+            <div class="sound-box" onclick="playSound('soundB')">
+                <h2>Caixa</h2>
+            </div>
+            <div class="sound-box" onclick="playSound('soundC')">
+                <h2>Prato</h2>
+            </div>
+            <div class="sound-box" onclick="playSound('soundD')">
+                <h2>Palma</h2>
+            </div>
+        </div>
+        <div class="sound-grid">
+            <div class="sound-box large" onclick="playSound('soundSpace')">
+                <h2>ESPAÇO</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crie as tags de áudio para cada som -->
+    <audio id="soundA">
+        <source src="som\\bumbo.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <audio id="soundB">
+        <source src="som\\caixa.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <audio id="soundC">
+        <source src="som\\palma.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <audio id="soundD">
+        <source src="som\\prato.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <script>
+        let activeSound = null; // Variável para manter o som ativo
+        // Ojeto para armazenar o estado dos sons
+        const soundStates = {
+            soundA: false,
+            soundB: false,
+            soundC: false,
+            soundD: false,
+        };
+
+        function preloadAudio(soundId) {
+        const audio = document.getElementById(soundId);
+        if (audio) {
+            audio.load(); // Pré-carregar o áudio em memória
+        }
+    }
+
+    function playSound(soundId, message) {
+    const audio = document.getElementById(soundId);
+    if (audio) {
+        if (!soundStates[soundId]) {
+            preloadAudio(soundId);
+        }
+
+        audio.currentTime = 0;
+        audio.play();
+        soundStates[soundId] = true;
+        showMessage(message);
+
+        activeSound = audio;
+
+        // Adicionar classe temporária para manter a cor original
+        const box = document.querySelector(`[onclick="playSound('${soundId}')"]`);
+        box.classList.add('playing', 'original-color');
+
+        // Remover a classe "playing" e a classe temporária após a animação
+        setTimeout(() => {
+            box.classList.remove('playing', 'original-color');
+        }, 1000); // 1000 ms = 1 segundo, ajuste conforme a duração da animação
+    }
+}
+
+
+        function stopSound() {
+            if (activeSound) {
+                activeSound.pause(); // Pausar o som ativo
+                activeSound.currentTime = 0; // Reiniciar a reprodução do som do início
+                activeSound = null; // Limpar o som ativo
+            }
+        }
+
+        function showMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messageElement.classList.add('success'); /* Adicionando a classe 'success' para acionar a animação */
+            document.body.appendChild(messageElement);
+
+            setTimeout(function() {
+                messageElement.remove();
+            }, 2000);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            const key = event.key.toLowerCase();
+            switch (key) {
+                case '1':
+                    playSound('soundA', '"BUMBO" foi reproduzido com sucesso!');
+                    break;
+                case '2':
+                    playSound('soundB', '"CAIXA" foi reproduzido com sucesso!');
+                    break;
+                case '3':
+                    playSound('soundC', '"PRATO" foi reproduzido com sucesso!');
+                    break;
+                case '4':
+                    playSound('soundD', '"PALMA" foi reproduzido com sucesso!');
+                    break;
+                case ' ': // Tecla espaço
+                    stopSound(); // Interromper o som imediatamente
+                    break;
+                // Adicione mais cases para outras teclas e sons, se necessário
+                default:
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
