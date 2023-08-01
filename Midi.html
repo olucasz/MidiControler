@@ -9,21 +9,30 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&display=swap">
 </head>
 <body>
+    <button onclick="increaseVolume()">+</button>
+    <button onclick="decreaseVolume()">-</button>
+    <div class="message-container">
+        <p id="volumeMessage"></p>
+      </div>
     <div class="container">
         <h1 class="title">PRECIONE A TECLA DESEJADA :D</h1>
         <div class="sound-grid">
             <div class="sound-box" onclick="playSound('soundA')">
                 <h2>Bumbo</h2>
-            </div>
+                <p class="volume-percentage" id="soundAVolume">70%</p>
+              </div>
             <div class="sound-box" onclick="playSound('soundB')">
                 <h2>Caixa</h2>
-            </div>
+                <p class="volume-percentage" id="soundBVolume">70%</p>
+              </div>
             <div class="sound-box" onclick="playSound('soundC')">
                 <h2>Prato</h2>
-            </div>
+                <p class="volume-percentage" id="soundCVolume">70%</p>
+              </div>
             <div class="sound-box" onclick="playSound('soundD')">
                 <h2>Palma</h2>
-            </div>
+                <p class="volume-percentage" id="soundDVolume">70%</p>
+              </div>
         </div>
         <div class="sound-grid">
             <div class="sound-box large" onclick="playSound('soundSpace')">
@@ -114,7 +123,28 @@
                 messageElement.remove();
             }, 2000);
         }
+        function increaseVolume() {
+        adjustVolume(0.1);
+        showMessageAndPercentage("Volume aumentado em 30%");
+        }
 
+        function decreaseVolume() {
+        adjustVolume(-0.1);
+        showMessageAndPercentage("Volume diminuído em 30%");
+        }
+        function adjustVolume(delta) {
+            if (activeSound) {
+                const currentVolume = activeSound.volume;
+                const newVolume = Math.min(1, Math.max(0, currentVolume + delta));
+                activeSound.volume = newVolume;
+
+                // Atualizar a porcentagem do volume no elemento HTML correspondente
+                const soundId = activeSound.id;
+                const volumePercentageElement = document.getElementById(`${soundId}Volume`);
+                const newVolumePercentage = Math.round(newVolume * 100);
+                volumePercentageElement.textContent = `${newVolumePercentage}%`;
+            }
+        }
         document.addEventListener('keydown', function(event) {
             const key = event.key.toLowerCase();
             switch (key) {
