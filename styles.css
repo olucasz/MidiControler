@@ -26,6 +26,42 @@ body {
     width: 1000px; /* Largura total das caixas */
 }
 
+  /* Aumentar o tamanho dos botões */
+button {
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+button:hover {
+  background-color: #D92579;
+}
+button:active {
+  transform: scale(0.9);
+}
+button:focus {
+  outline: none;
+}
+
+.sound-box {
+    position: relative;
+}
+
+.volume-percentage {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #555;
+  }
 .sound-box {
     width: 230px; /* Largura das caixas grandes */
     height: 230px; /* Altura das caixas grandes */
@@ -38,9 +74,12 @@ body {
     cursor: pointer;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
-
-.sound-box.playing {
+.sound-box:hover {
     background-color: #D92579;
+}
+.sound-box.playing {
+    background-color: #8eddff;
+
 }
 
 
